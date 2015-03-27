@@ -2,6 +2,7 @@
 var loadedscripts = 0; //counting how many scripts/functions load (DOMContentLoaded and deviceready)
 var peeps = []; //this array is holding 12 objects (contacts)
 
+
 document.addEventListener("DOMContentLoaded", function () {
     loadedscripts++; //increments the variable by 1
     if (loadedscripts === 2) { //compares variable to make sure it equals the number of scripts/functions
@@ -76,7 +77,7 @@ function getContacts() {
 
             document.querySelector("#contactNames").appendChild(info); //add var info to html
 
-            info.addEventListener("click", app.edit, false);
+//            info.addEventListener("click", app.edit, false);
         }
     }
 }
@@ -84,6 +85,9 @@ function getContacts() {
 //HAMMER
 
 var app = {
+    lat: "",
+    lon: "",
+
     init: function () {
 
         var ulClick = document.querySelector("[data-role=listview]");
@@ -104,27 +108,46 @@ var app = {
         // we only want to trigger a tap, when we don't have detected a doubletap
         hammertime.get('singletap').requireFailure('doubletap');
 
-        hammertime.on("singletap doubletap", function (ev) {
-            if (ev.type == "singletap") {
-                console.log("singletap");
-                app.edit(ev); //single tap
-            } else {
-                console.log("doubletap");
-                app.Map(ev);
-                //double tap
-            }
+        hammertime.on("singletap", function (ev) {
+
+            console.log("singletap");
+            app.edit(ev); //single tap
+
+
+            //double tap
         });
 
+        hammertime.on("doubletap", function (ev) {
+
+            console.log("doubletap");
+            app.Map(ev);
+        });
+
+
         document.getElementById("btnCancel").addEventListener("click", app.cancel);
+
+
+
+        //Map
+        if (navigator.geolocation) {
+            var params = {
+                enableHighAccuracy: false,
+                timeout: 360000,
+                maximumAge: 6000000
+            };
+            navigator.geolocation.getCurrentPosition(app.reportPosition, app.gpsError, params);
+        } else {
+            alert("Sorry, but your browser does not support location based awesomeness.")
+        }
     },
 
-//OKAY button
+    //OKAY button
     cancel: function (ev) {
         document.querySelector("[data-role=modal]").style.display = "none";
         document.querySelector("[data-role=overlay]").style.display = "none";
     },
 
-//MODAL
+    //MODAL
     edit: function (ev) {
 
         document.querySelector("[data-role=modal]").style.display = "block";
@@ -138,8 +161,48 @@ var app = {
         document.querySelector("#home").innerHTML = localinfo[item].numb[0].type + ": " + localinfo[item].numb[0].value;
         document.querySelector("#mobile").innerHTML = localinfo[item].numb[1].type + ": " + localinfo[item].numb[1].value;
 
+    },
+
+    Map: function (ev) {
+        document.querySelector("#contacts").style.display = "none";
+        document.querySelector("#location").style.display = "block";
+        var currentLocation = new google.maps.LatLng(app.lat, app.lon);
+
+        var mapOptions = {
+            center: currentLocation,
+            zoom: 14,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        var map = new google.maps.Map(document.getElementById("map"),
+            mapOptions);
+
+        var marker = new google.maps.Marker({
+            position: currentLocation,
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.BOUNCE
+        })
+        marker.setMap(map);
+    },
+
+    reportPosition: function (position) {
+        app.lat = position.coords.latitude;
+        app.lon = position.coords.longitude;
+    },
+    gpsError: function (error) {
+        var errors = {
+            1: 'Permission denied',
+            2: 'Position unavailable',
+            3: 'Request timeout'
+        };
+        alert("Error: " + errors[error.code]);
     }
+
 }
+
+
+
 
 document.addEventListener("DOMContentLoaded", app.init);
 

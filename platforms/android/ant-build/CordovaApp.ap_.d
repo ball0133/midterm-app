@@ -35,7 +35,6 @@ C:\wamp\www\mad9014\cordova\midtermapp\platforms\android\assets\www\css \
 C:\wamp\www\mad9014\cordova\midtermapp\platforms\android\assets\www\img \
 C:\wamp\www\mad9014\cordova\midtermapp\platforms\android\assets\www\index.html \
 C:\wamp\www\mad9014\cordova\midtermapp\platforms\android\assets\www\js \
-C:\wamp\www\mad9014\cordova\midtermapp\platforms\android\assets\www\location.html \
 C:\wamp\www\mad9014\cordova\midtermapp\platforms\android\assets\www\plugins \
 C:\wamp\www\mad9014\cordova\midtermapp\platforms\android\assets\www\css\index.css \
 C:\wamp\www\mad9014\cordova\midtermapp\platforms\android\assets\www\img\back-icon.svg \
@@ -44,7 +43,6 @@ C:\wamp\www\mad9014\cordova\midtermapp\platforms\android\assets\www\img\contact-
 C:\wamp\www\mad9014\cordova\midtermapp\platforms\android\assets\www\img\location-icon-2.svg \
 C:\wamp\www\mad9014\cordova\midtermapp\platforms\android\assets\www\img\location-icon.svg \
 C:\wamp\www\mad9014\cordova\midtermapp\platforms\android\assets\www\img\logo.png \
-C:\wamp\www\mad9014\cordova\midtermapp\platforms\android\assets\www\js\geolocation.js \
 C:\wamp\www\mad9014\cordova\midtermapp\platforms\android\assets\www\js\hammer.js \
 C:\wamp\www\mad9014\cordova\midtermapp\platforms\android\assets\www\js\index.js \
 C:\wamp\www\mad9014\cordova\midtermapp\platforms\android\assets\www\js\transition.js \
